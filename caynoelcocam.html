@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cây Noel Có Cam - Tách file</title>
+    
+    <!-- Tách CSS ra file riêng -->
+    <link rel="stylesheet" href="./caynoelcocam.css">
+    
+    <style>
+        /* Import font chữ */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+    </style>
+
+    <!-- Khai báo các thư viện cần thiết (Three.js để vẽ 3D và MediaPipe để nhận diện tay) -->
+    <!-- Phần này không thể tách sang file .js được, phải để trong thẻ script type="importmap" của HTML -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+                "@mediapipe/tasks-vision": "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/+esm"
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Màn hình chờ tải -->
+    <div id="loader">
+        <div class="spinner"></div>
+        <div class="loader-text">Loading Memories</div>
+    </div>
+
+    <!-- Div chứa Canvas 3D của Three.js -->
+    <div id="canvas-container"></div>
+
+    <!-- Lớp giao diện (Chữ, Nút bấm) -->
+    <div id="ui-layer">
+        <h1>BIN NA RECAP 2025</h1>
+        
+        <div class="controls-wrapper">
+            <div class="btn-group">
+                <!-- Nút chọn Thư mục ảnh -->
+                <label class="upload-btn">
+                    Select Folder
+                    <input type="file" id="folder-input" webkitdirectory directory multiple>
+                </label>
+                
+                <!-- Nút chọn các file ảnh lẻ -->
+                <label class="upload-btn">
+                    Select Files
+                    <input type="file" id="file-input" multiple accept="image/*">
+                </label>
+            </div>
+            <div class="hint-text">Use "Select Folder" to load all photos at once</div>
+            <div class="hint-text" style="opacity: 0.7; font-size: 8px;">Or put photos in "./images/" (e.g., 1.jpg, 2.png, 3.webp)</div>
+        </div>
+    </div>
+
+    <!-- Khung hiển thị Camera (Webcam) -->
+    <div id="webcam-wrapper">
+        <video id="webcam" autoplay playsinline></video>
+        <div id="debug-info">Initializing...</div>
+        <canvas id="webcam-preview" style="display:none;"></canvas>
+    </div>
+
+    <!-- Tách đoạn code logic JavaScript ra file riêng -->
+    <script type="module" src="./caynoelcocam.js"></script>
+</body>
+</html>
